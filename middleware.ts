@@ -2,6 +2,39 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import { guestRegex, isDevelopmentEnvironment } from './lib/constants';
 
+// HTTP Basic Authentication
+function isAuthenticated(request: NextRequest) {
+  const authheader = request.headers.get('authorization') || request.headers.get('Authorization');
+
+  if (!authheader) {
+    return false;
+  }
+
+  const auth = authheader.split(' ');
+  if (auth[0] !== 'Basic') {
+    return false;
+  }
+
+  const credentials = Buffer.from(auth[1], 'base64').toString().split(':');
+  const username = credentials[0];
+  const password = credentials[1];
+
+  // Get credentials from environment variables
+  const validUsername = process.env.HTTP_AUTH_USERNAME || 'admin';
+  const validPassword = process.env.HTTP_AUTH_PASSWORD || 'password';
+
+  return username === validUsername && password === validPassword;
+}
+
+function requestAuth() {
+  return new Response('Authentication required', {
+    status: 401,
+    headers: {
+      'WWW-Authenticate': 'Basic realm="Secure Area"',
+    },
+  });
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -11,6 +44,16 @@ export async function middleware(request: NextRequest) {
    */
   if (pathname.startsWith('/ping')) {
     return new Response('pong', { status: 200 });
+  }
+
+  // Skip HTTP auth in development and test environments (optional)
+  const skipHttpAuth = isDevelopmentEnvironment || 
+                      process.env.SKIP_HTTP_AUTH === 'true' ||
+                      process.env.NODE_ENV === 'test';
+
+  // Apply HTTP Basic Authentication (unless skipped)
+  if (!skipHttpAuth && !isAuthenticated(request)) {
+    return requestAuth();
   }
 
   if (pathname.startsWith('/api/auth')) {
