@@ -19,25 +19,25 @@ const steps: Step[] = [
   },
   {
     id: 'extract',
-    title: 'Extracting slides',
+    title: 'Narrating slides with Sievedata.com and VEED',
     description: 'Extracting slides from deck...',
     duration: 2500,
   },
   {
     id: 'visuals',
     title: 'Generating visuals',
-    description: 'Creating beautiful visual elements...',
+    description: 'Creating beautiful visual elements with fal.ai...',
     duration: 2500,
   },
   {
     id: 'voice',
     title: 'Synthesizing voice',
-    description: 'Processing audio with AI voice synthesis...',
+    description: 'Processing audio AI voice synthesis with ElevenLabs.io...',
     duration: 2500,
   },
   {
     id: 'compile',
-    title: 'Compiling in VEED',
+    title: 'Compiling video',
     description: 'Final compilation and rendering...',
     duration: 2500,
   },
@@ -93,19 +93,19 @@ const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
     <div className="flex-1 p-6">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             Video Processing Pipeline
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             Transform your content with our AI-powered video processing
           </p>
         </div>
 
         {isComplete && (
-          <div className="mb-8 p-6 bg-green-50 border-2 border-green-200 rounded-xl text-center animate-fade-in">
-            <CheckCircle2 className="w-12 h-12 text-green-500 mx-auto mb-3" />
-            <h2 className="text-2xl font-bold text-green-700 mb-2">Ready!</h2>
-            <p className="text-green-600">
+          <div className="mb-8 p-6 bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800 rounded-xl text-center animate-fade-in">
+            <CheckCircle2 className="w-12 h-12 text-green-500 dark:text-green-400 mx-auto mb-3" />
+            <h2 className="text-2xl font-bold text-green-700 dark:text-green-300 mb-2">Ready!</h2>
+            <p className="text-green-600 dark:text-green-400">
               Your video has been successfully processed and is ready for use.
             </p>
           </div>
@@ -126,7 +126,7 @@ const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
 
         <div className="text-center space-y-4">
           {isRunning && (
-            <p className="text-sm text-gray-500 animate-pulse">
+            <p className="text-sm text-gray-500 dark:text-gray-400 animate-pulse">
               Processing step{' '}
               {currentStepIndex < steps.length
                 ? currentStepIndex + 1
