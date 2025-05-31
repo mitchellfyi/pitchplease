@@ -6,6 +6,10 @@ import type { SupabaseSession } from '@/lib/supabase/types';
 import type { Session } from 'next-auth';
 import { useState } from 'react';
 import UploadComplete from './upload-complete';
+import DownloadAssets from './download-assets';
+import { RefreshCw } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const SessionPageComponent = ({
   session,
@@ -26,7 +30,22 @@ const SessionPageComponent = ({
             }}
           />
         ) : (
-          <UploadComplete />
+          <div className="flex flex-col gap-4">
+            <UploadComplete session={session} />
+            <DownloadAssets session={session} />
+            <div className="text-center">
+              <Link href="/">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="px-8 py-3 text-lg"
+                >
+                  <RefreshCw className="w-5 h-5 mr-2" />
+                  Process Another Video
+                </Button>
+              </Link>
+            </div>
+          </div>
         )}
       </div>
     </div>

@@ -1,3 +1,4 @@
+import DownloadVideo from '@/components/download-video';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -5,10 +6,21 @@ import {
   DropdownMenuItem,
   DropdownMenuContent,
 } from '@/components/ui/dropdown-menu';
-import { CheckCircle2, Download, RefreshCw, Share, Video } from 'lucide-react';
+import type { SupabaseSession } from '@/lib/supabase/types';
+import { CheckCircle2, Share, Video } from 'lucide-react';
 import Link from 'next/link';
+import type { FC } from 'react';
 
-const UploadComplete = () => {
+type UploadCompleteProps = {
+  session: SupabaseSession;
+};
+
+const UploadComplete: FC<UploadCompleteProps> = ({ session }) => {
+  console.log(
+    '%capp/sessions/[sessionId]/upload-complete.tsx:18 session',
+    'color: #007acc;',
+    session,
+  );
   const videoUrl =
     'https://shotstack-api-v1-output.s3-ap-southeast-2.amazonaws.com/kuta3nwxnf/d5c9f144-731b-474c-8d7f-46bac753a5d8.mp4';
 
@@ -45,22 +57,7 @@ const UploadComplete = () => {
           </div>
 
           <div className="flex justify-center gap-4 mt-6">
-            <Button
-              size="lg"
-              className="px-8"
-              onClick={() => {
-                const link = document.createElement('a');
-                link.href = videoUrl;
-                link.download = 'video.mp4';
-                link.target = '_blank';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-              }}
-            >
-              <Download />
-              Download Video
-            </Button>
+            <DownloadVideo videoUrl={videoUrl} videoName="video.mp4" />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="lg" className="px-8">
@@ -98,15 +95,6 @@ const UploadComplete = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-        </div>
-
-        <div className="text-center">
-          <Link href="/">
-            <Button variant="outline" size="lg" className="px-8 py-3 text-lg">
-              <RefreshCw className="w-5 h-5 mr-2" />
-              Process Another Video
-            </Button>
-          </Link>
         </div>
       </div>
     </div>

@@ -1,8 +1,6 @@
 import { auth } from '@/app/(auth)/auth';
 import { AppSidebar } from '@/components/app-sidebar';
-import { SidebarInset } from '@/components/ui/sidebar';
-
-import { SidebarProvider } from '@/components/ui/sidebar';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { cookies } from 'next/headers';
 
 const SessionLayout = async ({
