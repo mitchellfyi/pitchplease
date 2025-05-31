@@ -8,8 +8,8 @@ import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://chat.vercel.ai'),
-  title: 'Next.js Chatbot Template',
-  description: 'Next.js chatbot template using the AI SDK.',
+  title: 'Pitch, Please! - AI-Powered Pitch Deck Assistant',
+  description: 'Create compelling pitch decks with AI assistance. Pitch, Please! helps you craft persuasive presentations for investors and stakeholders.',
 };
 
 export const viewport = {
