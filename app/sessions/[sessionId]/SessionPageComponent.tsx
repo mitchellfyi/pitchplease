@@ -28,7 +28,7 @@ const SessionPageComponent = ({
       const { status, sessionStatus } = await getSessionStatus(
         session.session_id,
       );
-      if (status === 'success') {
+      if (status === 'success' && sessionStatus) {
         setUploadStep(sessionStatus);
         if (sessionStatus === 'completed') {
           setTimeout(() => {

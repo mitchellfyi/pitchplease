@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import ProgressStep from './progress-step';
-import { FC } from 'react';
+import type { FC } from 'react';
 import type { WorkflowStatus } from '@/lib/supabase/types';
 
 interface Step {
