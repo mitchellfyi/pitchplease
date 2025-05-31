@@ -128,7 +128,6 @@ export const uploadFilesToSupabase = async (
       console.error('Error uploading files', errorFound);
       return { status: 'failed' };
     }
-    console.log('Results', results);
     return {
       status: 'success',
       sessions: results.map(
