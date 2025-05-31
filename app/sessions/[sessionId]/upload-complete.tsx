@@ -1,0 +1,116 @@
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenuContent,
+} from '@/components/ui/dropdown-menu';
+import { CheckCircle2, Download, RefreshCw, Share, Video } from 'lucide-react';
+import Link from 'next/link';
+
+const UploadComplete = () => {
+  const videoUrl =
+    'https://shotstack-api-v1-output.s3-ap-southeast-2.amazonaws.com/kuta3nwxnf/d5c9f144-731b-474c-8d7f-46bac753a5d8.mp4';
+
+  return (
+    <div className="min-h-screen p-6">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4 animate-scale-in" />
+          <h1 className="text-4xl font-bold text-green-700 mb-4 animate-fade-in">
+            Video Processing Complete!
+          </h1>
+          <p className="text-xl text-gray-600 animate-fade-in">
+            Your video has been successfully processed and is ready to watch.
+          </p>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-2xl p-8 mb-8 animate-scale-in">
+          <div className="flex items-center gap-3 mb-6">
+            <Video className="w-6 h-6 text-blue-500" />
+            <h2 className="text-2xl font-semibold text-gray-800">
+              Final Video
+            </h2>
+          </div>
+
+          <div className="relative w-full max-w-4xl mx-auto bg-black rounded-lg overflow-hidden">
+            <video
+              controls
+              className="w-full h-auto"
+              poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMjEyMTIxIi8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzk5OTk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPllvdXIgVmlkZW8gSXMgUmVhZHkhPC90ZXh0Pgo8L3N2Zz4K"
+            >
+              <source src={videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <div className="flex justify-center gap-4 mt-6">
+            <Button
+              size="lg"
+              className="px-8"
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = videoUrl;
+                link.download = 'video.mp4';
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+            >
+              <Download />
+              Download Video
+            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="lg" className="px-8">
+                  <Share />
+                  Share your video
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuItem
+                  onClick={() => {
+                    window.open(
+                      `https://www.instagram.com/sharer/sharer.php?u=${videoUrl}`,
+                      '_blank',
+                    );
+                  }}
+                >
+                  Instagram
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${videoUrl}`}
+                    target="_blank"
+                  >
+                    Facebook
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link
+                    href={`https://www.linkedin.com/shareArticle?mini=true&url=${videoUrl}`}
+                    target="_blank"
+                  >
+                    LinkedIn
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Link href="/">
+            <Button variant="outline" size="lg" className="px-8 py-3 text-lg">
+              <RefreshCw className="w-5 h-5 mr-2" />
+              Process Another Video
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UploadComplete;
