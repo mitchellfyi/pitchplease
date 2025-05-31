@@ -27,6 +27,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import { useScrollToBottom } from '@/hooks/use-scroll-to-bottom';
 import type { VisibilityType } from './visibility-selector';
+import { uploadFilesToSupabase } from '@/app/(auth)/actions';
+import { useRouter } from 'next/navigation';
 
 function PureMultimodalInput({
   chatId,
@@ -59,6 +61,7 @@ function PureMultimodalInput({
 }) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { width } = useWindowSize();
+  const router = useRouter();
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -176,6 +179,25 @@ function PureMultimodalInput({
           ...currentAttachments,
           ...successfullyUploadedAttachments,
         ]);
+        const uploadFilesResult = await uploadFilesToSupabase(
+          successfullyUploadedAttachments,
+        );
+        if (
+          uploadFilesResult.status === 'failed' ||
+          uploadFilesResult.status === 'invalid_data'
+        ) {
+          toast.error('Failed to upload files, please try again!');
+        } else {
+          toast.success('Files uploaded successfully!');
+          setTimeout(() => {
+            setUploadQueue([]);
+            if (uploadFilesResult.sessions) {
+              router.push(
+                `/sessions/${uploadFilesResult.sessions[0][0].session_id}`,
+              );
+            }
+          }, 1000);
+        }
       } catch (error) {
         console.error('Error uploading files!', error);
       } finally {

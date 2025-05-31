@@ -8,7 +8,6 @@ import { DataStreamHandler } from '@/components/data-stream-handler';
 import { DEFAULT_CHAT_MODEL } from '@/lib/ai/models';
 import type { DBMessage } from '@/lib/db/schema';
 import type { Attachment, UIMessage } from 'ai';
-import { createClient } from '@/lib/supabase/server';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -54,15 +53,6 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
   const cookieStore = await cookies();
   const chatModelFromCookie = cookieStore.get('chat-model');
-
-  // Supabase
-  const supabase = createClient(cookieStore);
-
-  const { data: workflowArtifacts } = await supabase
-    .from('workflow_artifacts')
-    .select();
-
-  console.log(workflowArtifacts);
 
   if (!chatModelFromCookie) {
     return (
