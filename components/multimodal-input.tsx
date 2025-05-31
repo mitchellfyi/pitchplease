@@ -27,7 +27,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import { useScrollToBottom } from '@/hooks/use-scroll-to-bottom';
 import type { VisibilityType } from './visibility-selector';
-import { uploadFilesToSupabase } from '@/app/(auth)/actions';
+import { uploadFilesToSupabase } from '@/app/sessions/actions';
 import { useRouter } from 'next/navigation';
 
 function PureMultimodalInput({

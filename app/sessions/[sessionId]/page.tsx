@@ -1,4 +1,4 @@
-import { getSupabaseSession } from '@/app/(auth)/actions';
+import { getSupabaseSession } from '@/app/sessions/actions';
 import SessionPageComponent from './SessionPageComponent';
 import { auth } from '@/app/(auth)/auth';
 

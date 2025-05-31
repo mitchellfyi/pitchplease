@@ -2,86 +2,77 @@ import React, { useState, useEffect } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import ProgressStep from './progress-step';
 import { FC } from 'react';
+import type { WorkflowStatus } from '@/lib/supabase/types';
 
 interface Step {
-  id: string;
+  id: WorkflowStatus;
   title: string;
   description?: string;
-  duration: number; // in milliseconds
 }
 
 const steps: Step[] = [
   {
-    id: 'upload',
+    id: 'started',
     title: 'Uploading file',
     description: 'Securely uploading your video file...',
-    duration: 3000,
   },
   {
-    id: 'extract',
+    id: 'pdf_split',
     title: 'Extracting slides',
     description: 'Extracting slides from deck...',
-    duration: 2500,
   },
   {
-    id: 'visuals',
+    id: 'video_prompt',
     title: 'Generating visuals',
     description: 'Creating beautiful visual elements...',
-    duration: 2500,
   },
   {
-    id: 'voice',
+    id: 'audio_prompt',
     title: 'Synthesizing voice',
     description: 'Processing audio with AI voice synthesis...',
-    duration: 2500,
   },
   {
-    id: 'compile',
+    id: 'video_generation',
     title: 'Compiling in VEED',
     description: 'Final compilation and rendering...',
-    duration: 2500,
   },
+  { id: 'completed', title: 'Completed' },
 ];
 
-const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [isComplete, setIsComplete] = useState(false);
+type ProgressPageProps = {
+  uploadStep: WorkflowStatus;
+  onFinish: () => void;
+};
+
+const ProgressPage: FC<ProgressPageProps> = ({ uploadStep, onFinish }) => {
+  const [currentStepIndex, setCurrentStepIndex] = useState<number>(
+    steps.findIndex((step) => step.id === uploadStep),
+  );
+  const [progress, setProgress] = useState<number>(0);
   const [isRunning, setIsRunning] = useState(true);
 
   useEffect(() => {
-    if (!isRunning || isComplete) return;
-
-    const currentStep = steps[currentStepIndex];
+    const currentStep = steps.find((step) => step.id === uploadStep);
     if (!currentStep) return;
 
+    if (uploadStep === 'completed') {
+      setIsRunning(false);
+      return;
+    }
+
+    setCurrentStepIndex(steps.findIndex((step) => step.id === uploadStep));
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        const newProgress = prev + 100 / (currentStep.duration / 50);
-
+      setProgress((prev: number) => {
+        const newProgress = prev + 100 / (2500 / 50);
         if (newProgress >= 100) {
-          clearInterval(interval);
-
-          setTimeout(() => {
-            if (currentStepIndex < steps.length - 1) {
-              setCurrentStepIndex((prev) => prev + 1);
-              setProgress(0);
-            } else {
-              setIsComplete(true);
-              setIsRunning(false);
-              onFinish();
-            }
-          }, 500);
-
-          return 100;
+          return 0;
         }
-
         return newProgress;
       });
     }, 50);
 
     return () => clearInterval(interval);
-  }, [currentStepIndex, isRunning, isComplete]);
+  }, [currentStepIndex, isRunning, uploadStep]);
 
   const getStepStatus = (index: number) => {
     if (index < currentStepIndex) return 'completed';
@@ -101,7 +92,7 @@ const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
           </p>
         </div>
 
-        {isComplete && (
+        {uploadStep === 'completed' && (
           <div className="mb-8 p-6 bg-green-50 border-2 border-green-200 rounded-xl text-center animate-fade-in">
             <CheckCircle2 className="w-12 h-12 text-green-500 mx-auto mb-3" />
             <h2 className="text-2xl font-bold text-green-700 mb-2">Ready!</h2>

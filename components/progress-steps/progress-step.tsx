@@ -71,7 +71,6 @@ const ProgressStep: React.FC<ProgressStepProps> = ({
       {status === 'active' && (
         <div className="space-y-2">
           <Progress value={progress} className="h-2" />
-          <p className="text-sm text-gray-600 text-right">{progress}%</p>
         </div>
       )}
     </div>
