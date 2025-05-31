@@ -1,10 +1,13 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import { guestRegex, isDevelopmentEnvironment } from './lib/constants';
+import { createClient } from './lib/supabase/middleware';
 
 // HTTP Basic Authentication
 function isAuthenticated(request: NextRequest) {
-  const authheader = request.headers.get('authorization') || request.headers.get('Authorization');
+  const authheader =
+    request.headers.get('authorization') ||
+    request.headers.get('Authorization');
 
   if (!authheader) {
     return false;
@@ -47,9 +50,10 @@ export async function middleware(request: NextRequest) {
   }
 
   // Skip HTTP auth in development and test environments (optional)
-  const skipHttpAuth = isDevelopmentEnvironment || 
-                      process.env.SKIP_HTTP_AUTH === 'true' ||
-                      process.env.NODE_ENV === 'test';
+  const skipHttpAuth =
+    isDevelopmentEnvironment ||
+    process.env.SKIP_HTTP_AUTH === 'true' ||
+    process.env.NODE_ENV === 'test';
 
   // Apply HTTP Basic Authentication (unless skipped)
   if (!skipHttpAuth && !isAuthenticated(request)) {
@@ -80,7 +84,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  return NextResponse.next();
+  return createClient(request);
 }
 
 export const config = {
