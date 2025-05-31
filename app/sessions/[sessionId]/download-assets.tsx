@@ -15,7 +15,8 @@ const DownloadAssets: FC<DownloadAssetsProps> = ({ session }) => {
     session,
   );
   const videoUrl =
-    'https://shotstack-api-v1-output.s3-ap-southeast-2.amazonaws.com/kuta3nwxnf/d5c9f144-731b-474c-8d7f-46bac753a5d8.mp4';
+    session.video_url ||
+    'https://shotstack-api-v1-output.s3-ap-southeast-2.amazonaws.com/kuta3nwxnf/385aebfe-fa1f-4b15-aacc-ebf869465616.mp4';
 
   return (
     <div className="bg-white rounded-2xl shadow-xl p-8 mb-8 animate-scale-in">
