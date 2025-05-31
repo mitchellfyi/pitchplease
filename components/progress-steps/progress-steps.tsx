@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import ProgressStep from './progress-step';
+import { FC } from 'react';
 
 interface Step {
   id: string;
@@ -42,7 +43,7 @@ const steps: Step[] = [
   },
 ];
 
-const ProgressPage: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
+const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
@@ -63,7 +64,7 @@ const ProgressPage: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
 
           setTimeout(() => {
             if (currentStepIndex < steps.length - 1) {
-              setCurrentStepIndex((prev) => prev + 0.5); // For some reason, this runs twice
+              setCurrentStepIndex((prev) => prev + 1);
               setProgress(0);
             } else {
               setIsComplete(true);
