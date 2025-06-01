@@ -23,14 +23,14 @@ const UploadComplete: FC<UploadCompleteProps> = ({ session }) => {
   );
   const videoUrl =
     session.video_url ||
-    'https://shotstack-api-v1-output.s3-ap-southeast-2.amazonaws.com/kuta3nwxnf/385aebfe-fa1f-4b15-aacc-ebf869465616.mp4';
+    'https://shotstack-api-v1-output.s3-ap-southeast-2.amazonaws.com/kuta3nwxnf/3e3ee8c3-6a2a-4e1c-ba47-b1f016f5bca7.mp4';
 
   return (
     <div className="min-h-screen p-6">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <CheckCircle2 className="w-16 h-16 text-green-500 dark:text-green-400 mx-auto mb-4 animate-scale-in" />
-          <h1 className="text-4xl font-bold text-green-700 dark:text-green-400 mb-4 animate-fade-in">
+          <CheckCircle2 className="w-16 h-16 text-green-600 dark:text-green-500 mx-auto mb-4 animate-scale-in" />
+          <h1 className="text-4xl font-bold text-green-600 dark:text-green-500 mb-4 animate-fade-in">
             Video Processing Complete!
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 animate-fade-in">

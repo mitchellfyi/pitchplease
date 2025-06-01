@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import ProgressStep from './progress-step';
 import { FC } from 'react';
@@ -19,8 +19,8 @@ const steps: Step[] = [
   },
   {
     id: 'extract',
-    title: 'Narrating slides with Sievedata.com and VEED',
-    description: 'Extracting slides from deck...',
+    title: 'Narrating slides',
+    description: 'Creating a talking avatar with Sievedata.com and VEED.io...',
     duration: 2500,
   },
   {
@@ -48,24 +48,36 @@ const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [isRunning, setIsRunning] = useState(true);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!isRunning || isComplete) return;
+    if (!isRunning || isComplete || currentStepIndex >= steps.length) return;
+
+    // Clear any existing interval
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    // Reset progress for new step
+    setProgress(0);
 
     const currentStep = steps[currentStepIndex];
-    if (!currentStep) return;
+    const incrementPerTick = 100 / (currentStep.duration / 50);
 
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setProgress((prev) => {
         const newProgress = prev + 100 / (currentStep.duration / 50);
 
         if (newProgress >= 100) {
-          clearInterval(interval);
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
 
+          // Move to next step after a short delay
           setTimeout(() => {
             if (currentStepIndex < steps.length - 1) {
-              setCurrentStepIndex((prev) => prev + 1);
-              setProgress(0);
+              setCurrentStepIndex(currentStepIndex + 1);
             } else {
               setIsComplete(true);
               setIsRunning(false);
@@ -80,8 +92,14 @@ const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
       });
     }, 50);
 
-    return () => clearInterval(interval);
-  }, [currentStepIndex, isRunning, isComplete]);
+    // Cleanup function
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [currentStepIndex, isRunning, isComplete, onFinish]);
 
   const getStepStatus = (index: number) => {
     if (index < currentStepIndex) return 'completed';
