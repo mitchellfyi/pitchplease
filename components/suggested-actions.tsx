@@ -7,8 +7,8 @@ import type { UseChatHelpers } from '@ai-sdk/react';
 import type { VisibilityType } from './visibility-selector';
 import { Upload, FileText } from 'lucide-react';
 import { toast } from 'sonner';
-import { uploadFilesToSupabase } from '@/app/(auth)/actions';
 import { useRouter } from 'next/navigation';
+import { uploadFilesToSupabase } from '@/app/sessions/actions';
 
 interface SuggestedActionsProps {
   chatId: string;
@@ -51,7 +51,9 @@ function PureSuggestedActions({
     }
   };
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -69,7 +71,7 @@ function PureSuggestedActions({
 
     try {
       toast.success('Processing pitch deck...');
-      
+
       // Upload file
       const uploadedAttachment = await uploadFile(file);
       if (!uploadedAttachment) {
@@ -78,16 +80,21 @@ function PureSuggestedActions({
       }
 
       // Upload to Supabase and get session
-      const uploadFilesResult = await uploadFilesToSupabase([uploadedAttachment]);
-      
-      if (uploadFilesResult.status === 'failed' || uploadFilesResult.status === 'invalid_data') {
+      const uploadFilesResult = await uploadFilesToSupabase([
+        uploadedAttachment,
+      ]);
+
+      if (
+        uploadFilesResult.status === 'failed' ||
+        uploadFilesResult.status === 'invalid_data'
+      ) {
         toast.error('Failed to upload files, please try again!');
         return;
       }
 
       if (uploadFilesResult.sessions) {
         const sessionId = uploadFilesResult.sessions[0][0].session_id;
-        
+
         // Redirect to sessions page with session ID
         router.push(`/sessions/${sessionId}`);
       }
@@ -115,7 +122,7 @@ function PureSuggestedActions({
             size="sm"
             onClick={(event) => {
               // toast.success('Loading sample deck...');
-              
+
               // Redirect to specific session
               router.push('/sessions/session_1748689514050_awc8aeljg');
               event.preventDefault();
@@ -126,13 +133,13 @@ function PureSuggestedActions({
             <span className="mr-1">🚀</span>
             Try with sample Notion deck
           </Button>
-          
+
           <Button
             variant="outline"
             size="sm"
             onClick={(event) => {
               // toast.success('Loading demo deck...');
-              
+
               // Redirect to second demo session
               router.push('/sessions/ddf17c92-ae07-41a7-afde-97b5a7adfacc');
               event.preventDefault();
@@ -171,9 +178,9 @@ function PureSuggestedActions({
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Drop your PDF here or click to browse
               </p>
-              <Button 
+              <Button
                 type="button"
-                size="lg" 
+                size="lg"
                 className="bg-brand-950 hover:bg-brand-900 dark:bg-brand-600 dark:hover:bg-brand-700 text-white"
               >
                 <FileText className="w-5 h-5 mr-2" />
@@ -182,7 +189,7 @@ function PureSuggestedActions({
             </div>
           </div>
         </div>
-        
+
         <input
           ref={fileInputRef}
           type="file"
