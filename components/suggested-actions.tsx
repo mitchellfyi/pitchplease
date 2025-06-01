@@ -117,7 +117,7 @@ function PureSuggestedActions({
               // toast.success('Loading sample deck...');
               
               // Redirect to specific session
-              router.push('/sessions/16211340-7624-4c98-81f0-0985d1b3eee9');
+              router.push('/sessions/session_1748689514050_awc8aeljg');
               event.preventDefault();
               event.stopPropagation();
             }}
