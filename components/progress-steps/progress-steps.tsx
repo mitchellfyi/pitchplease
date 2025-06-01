@@ -47,49 +47,46 @@ const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
-  const [isRunning, setIsRunning] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const startTimeRef = useRef<number>(Date.now());
 
   useEffect(() => {
-    // Reset progress for new step
-    setProgress(0);
-    if (!isRunning || isComplete || currentStepIndex >= steps.length) return;
+    if (isComplete || currentStepIndex >= steps.length) return;
 
     // Clear any existing interval
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
 
+    // Reset for current step
+    startTimeRef.current = Date.now();
+    setProgress(0);
+
     const currentStep = steps[currentStepIndex];
-    const incrementPerTick = 100 / (currentStep.duration / 50);
-
+    
     intervalRef.current = setInterval(() => {
-      setProgress((prev) => {
-        const newProgress = prev + 100 / (currentStep.duration / 50);
+      const elapsed = Date.now() - startTimeRef.current;
+      const newProgress = Math.min((elapsed / currentStep.duration) * 100, 100);
+      
+      setProgress(newProgress);
 
-        if (newProgress >= 100) {
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-          }
-
-          // Move to next step after a short delay
-          setTimeout(() => {
-            if (currentStepIndex < steps.length - 1) {
-              setCurrentStepIndex(currentStepIndex + 1);
-            } else {
-              setIsComplete(true);
-              setIsRunning(false);
-              setProgress(0);
-              onFinish();
-            }
-          }, 500);
-
-          return 100;
+      if (newProgress >= 100) {
+        // Clear interval for this step
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
         }
 
-        return newProgress;
-      });
+        // Short delay before next step
+        setTimeout(() => {
+          if (currentStepIndex < steps.length - 1) {
+            setCurrentStepIndex(currentStepIndex + 1);
+          } else {
+            setIsComplete(true);
+            onFinish();
+          }
+        }, 300);
+      }
     }, 50);
 
     // Cleanup function
@@ -99,11 +96,11 @@ const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
         intervalRef.current = null;
       }
     };
-  }, [currentStepIndex, isRunning, isComplete, onFinish]);
+  }, [currentStepIndex, isComplete, onFinish]);
 
   const getStepStatus = (index: number) => {
     if (index < currentStepIndex) return 'completed';
-    if (index === currentStepIndex && isRunning) return 'active';
+    if (index === currentStepIndex && !isComplete) return 'active';
     return 'pending';
   };
 
@@ -143,13 +140,9 @@ const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
         </div>
 
         <div className="text-center space-y-4">
-          {isRunning && (
+          {!isComplete && (
             <p className="text-sm text-gray-500 dark:text-gray-400 animate-pulse">
-              Processing step{' '}
-              {currentStepIndex < steps.length
-                ? currentStepIndex + 1
-                : steps.length}{' '}
-              of {steps.length}...
+              Processing step {currentStepIndex + 1} of {steps.length}...
             </p>
           )}
         </div>
