@@ -38,9 +38,9 @@ export function AppSidebar({ user }: { user: User | undefined }) {
               <Image
                 src="/logo-pitchplease.png"
                 alt="PitchPlease"
-                width={101}
-                height={48}
-                className="h-12 w-auto hover:opacity-80 transition-opacity"
+                width={256}
+                height={122}
+                className="h-16 w-auto hover:opacity-80 transition-opacity"
               />
             </Link>
             <Tooltip>

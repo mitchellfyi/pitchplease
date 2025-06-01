@@ -109,23 +109,41 @@ function PureSuggestedActions({
         transition={{ duration: 0.5 }}
         className="text-center mb-6"
       >
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={(event) => {
-            toast.success('Loading sample deck...');
-            
-            // Redirect to specific session
-            router.push('/sessions/session_1748689514050_awc8aeljg');
-            event.preventDefault();
-            event.stopPropagation();
-
-          }}
-          className="mb-6 font-semibold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-        >
-          <span className="mr-1">🚀</span>
-          Try with sample Notion deck
-        </Button>
+        <div className="flex gap-3 justify-center">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={(event) => {
+              // toast.success('Loading sample deck...');
+              
+              // Redirect to specific session
+              router.push('/sessions/16211340-7624-4c98-81f0-0985d1b3eee9');
+              event.preventDefault();
+              event.stopPropagation();
+            }}
+            className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+          >
+            <span className="mr-1">🚀</span>
+            Try with sample Notion deck
+          </Button>
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={(event) => {
+              // toast.success('Loading demo deck...');
+              
+              // Redirect to second demo session
+              router.push('/sessions/ddf17c92-ae07-41a7-afde-97b5a7adfacc');
+              event.preventDefault();
+              event.stopPropagation();
+            }}
+            className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+          >
+            <span className="mr-1">🔥</span>
+            Try with our deck
+          </Button>
+        </div>
       </motion.div>
 
       <motion.div

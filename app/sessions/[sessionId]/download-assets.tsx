@@ -21,7 +21,7 @@ const DownloadAssets: FC<DownloadAssetsProps> = ({ session }) => {
   return (
     <div className="bg-white dark:bg-black rounded-2xl shadow-xl p-8 mb-8 animate-scale-in">
       <div className="flex items-center gap-3 mb-6">
-        <Download className="w-6 h-6 text-brand-500 dark:text-brand-950" />
+        <Download className="w-6 h-6 text-brand-600 dark:text-brand-600" />
         <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
           Download Assets
         </h2>
