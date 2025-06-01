@@ -22,7 +22,7 @@ export const Greeting = () => {
         transition={{ delay: 0.6 }}
         className="text-2xl text-zinc-500"
       >
-        Upload it here and we'll do the rest!
+        Upload it here and we&apos;ll do the rest!
       </motion.div>
     </div>
   );
