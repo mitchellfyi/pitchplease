@@ -2,6 +2,7 @@ import { compare } from 'bcrypt-ts';
 import NextAuth, { type DefaultSession } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import GitHub from 'next-auth/providers/github';
+import Google from 'next-auth/providers/google';
 import { createGuestUser, getUser, createOAuthUser } from '@/lib/db/queries';
 import { authConfig } from './auth.config';
 import { DUMMY_PASSWORD } from '@/lib/constants';
@@ -75,11 +76,22 @@ export const {
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
+    }),
   ],
   callbacks: {
     async signIn({ user, account }) {
-      // Handle OAuth providers like GitHub
-      if (account?.provider === 'github' && user.email) {
+      // Handle OAuth providers like GitHub and Google
+      if ((account?.provider === 'github' || account?.provider === 'google') && user.email) {
         try {
           // Check if user already exists
           const existingUsers = await getUser(user.email);
@@ -91,7 +103,7 @@ export const {
           
           return true;
         } catch (error) {
-          console.error('Error handling GitHub sign-in:', error);
+          console.error(`Error handling ${account.provider} sign-in:`, error);
           return false;
         }
       }
@@ -103,7 +115,7 @@ export const {
         token.id = user.id as string;
         
         // Set user type based on provider
-        if (account?.provider === 'github') {
+        if (account?.provider === 'github' || account?.provider === 'google') {
           token.type = 'regular';
         } else {
           token.type = user.type;
