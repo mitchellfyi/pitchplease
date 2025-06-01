@@ -27,7 +27,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
     <Sidebar className="group-data-[side=left]:border-r-0">
       <SidebarHeader>
         <SidebarMenu>
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row justify-between items-start">
             <Link
               href="/"
               onClick={() => {
@@ -38,9 +38,9 @@ export function AppSidebar({ user }: { user: User | undefined }) {
               <Image
                 src="/logo-pitchplease.png"
                 alt="PitchPlease"
-                width={120}
+                width={150}
                 height={32}
-                className="h-8 w-auto hover:opacity-80 transition-opacity"
+                className="h-12 w-auto hover:opacity-80 transition-opacity"
               />
             </Link>
             <Tooltip>
