@@ -34,9 +34,16 @@ const DownloadAssets: FC<DownloadAssetsProps> = ({ session }) => {
         <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
           <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Original PDF</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Your uploaded PDF file</p>
-          <Button variant="outline" size="sm" className="w-full">
-            <Download className="w-4 h-4 mr-2" />
-            Download PDF
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="w-full" 
+            asChild
+          >
+            <a href={session.file_url} download target="_blank" rel="noopener noreferrer">
+              <Download className="w-4 h-4 mr-2" />
+              Download PDF
+            </a>
           </Button>
         </div>
 
