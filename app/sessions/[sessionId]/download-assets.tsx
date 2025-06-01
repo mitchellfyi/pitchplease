@@ -19,9 +19,9 @@ const DownloadAssets: FC<DownloadAssetsProps> = ({ session }) => {
     'https://shotstack-api-v1-output.s3-ap-southeast-2.amazonaws.com/kuta3nwxnf/385aebfe-fa1f-4b15-aacc-ebf869465616.mp4';
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8 animate-scale-in">
+    <div className="bg-white dark:bg-black rounded-2xl shadow-xl p-8 mb-8 animate-scale-in">
       <div className="flex items-center gap-3 mb-6">
-        <Download className="w-6 h-6 text-purple-500 dark:text-purple-400" />
+        <Download className="w-6 h-6 text-brand-500 dark:text-brand-950" />
         <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
           Download Assets
         </h2>

@@ -30,7 +30,7 @@ const UploadComplete: FC<UploadCompleteProps> = ({ session }) => {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <CheckCircle2 className="w-16 h-16 text-green-500 dark:text-green-400 mx-auto mb-4 animate-scale-in" />
-          <h1 className="text-4xl font-bold text-green-700 dark:text-green-300 mb-4 animate-fade-in">
+          <h1 className="text-4xl font-bold text-green-700 dark:text-green-400 mb-4 animate-fade-in">
             Video Processing Complete!
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 animate-fade-in">
@@ -38,9 +38,9 @@ const UploadComplete: FC<UploadCompleteProps> = ({ session }) => {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 mb-8 animate-scale-in">
+        <div className="bg-white dark:bg-black rounded-2xl shadow-2xl p-8 mb-8 animate-scale-in">
           <div className="flex items-center gap-3 mb-6">
-            <Video className="w-6 h-6 text-blue-500 dark:text-blue-400" />
+            <Video className="w-6 h-6 text-brand-950 dark:text-brand-600" />
             <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
               Final Video
             </h2>

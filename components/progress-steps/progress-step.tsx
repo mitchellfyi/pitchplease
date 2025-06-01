@@ -22,7 +22,7 @@ const ProgressStep: React.FC<ProgressStepProps> = ({
       case 'completed':
         return <CheckCircle className="w-6 h-6 text-green-500 dark:text-green-400" />;
       case 'active':
-        return <Clock className="w-6 h-6 text-blue-500 dark:text-blue-400 animate-pulse" />;
+        return <Clock className="w-6 h-6 text-brand-950 dark:text-brand-600 animate-pulse" />;
       default:
         return <Circle className="w-6 h-6 text-gray-300 dark:text-gray-600" />;
     }
@@ -33,7 +33,7 @@ const ProgressStep: React.FC<ProgressStepProps> = ({
       case 'completed':
         return 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800';
       case 'active':
-        return 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 shadow-lg scale-105';
+        return 'bg-brand-50 dark:bg-brand-950/20 border-brand-200 dark:border-brand-700 shadow-lg scale-105';
       default:
         return 'bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700';
     }
@@ -55,7 +55,7 @@ const ProgressStep: React.FC<ProgressStepProps> = ({
                 status === 'completed'
                   ? 'text-green-700 dark:text-green-300'
                   : status === 'active'
-                    ? 'text-blue-700 dark:text-blue-300'
+                    ? 'text-brand-800 dark:text-brand-300'
                     : 'text-gray-400 dark:text-gray-500'
               }`}
             >
