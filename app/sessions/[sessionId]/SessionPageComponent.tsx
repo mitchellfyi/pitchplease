@@ -27,7 +27,7 @@ const SessionPageComponent = ({
       {userSession && <ChatHeader isReadonly={true} session={userSession} />}
       
       {isGuest && (
-        <div className="relative z-20 top-0 -mb-12 -top-12 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 px-4 py-3.5">
+        <div className="relative z-20 -mb-12 -top-12 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800 px-4 py-3.5">
           <div className="max-w-3xl mx-auto flex items-center gap-3">
             <Info className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0" />
             <p className="text-sm text-amber-800 dark:text-amber-200">
