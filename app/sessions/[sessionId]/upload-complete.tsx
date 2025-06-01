@@ -7,7 +7,7 @@ import {
   DropdownMenuContent,
 } from '@/components/ui/dropdown-menu';
 import type { SupabaseSession } from '@/lib/supabase/types';
-import { CheckCircle2, Share, Video } from 'lucide-react';
+import { CheckCircle2, Share, Video, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -23,25 +23,25 @@ const UploadComplete: FC<UploadCompleteProps> = ({ session }) => {
   );
   const videoUrl =
     session.video_url ||
-    'https://shotstack-api-v1-output.s3-ap-southeast-2.amazonaws.com/kuta3nwxnf/385aebfe-fa1f-4b15-aacc-ebf869465616.mp4';
+    'https://shotstack-api-v1-output.s3-ap-southeast-2.amazonaws.com/kuta3nwxnf/3e3ee8c3-6a2a-4e1c-ba47-b1f016f5bca7.mp4';
 
   return (
     <div className="min-h-screen p-6">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4 animate-scale-in" />
-          <h1 className="text-4xl font-bold text-green-700 mb-4 animate-fade-in">
+          <CheckCircle2 className="w-16 h-16 text-brand-600 dark:text-brand-500 mx-auto mb-2 animate-scale-in" />
+          <h1 className="text-4xl font-bold text-brand-600 dark:text-brand-500 mb-4 animate-fade-in">
             Video Processing Complete!
           </h1>
-          <p className="text-xl text-gray-600 animate-fade-in">
+          <p className="text-xl text-gray-600 dark:text-gray-400 animate-fade-in">
             Your video has been successfully processed and is ready to watch.
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-2xl p-8 mb-8 animate-scale-in">
+        <div className="bg-white dark:bg-black rounded-2xl shadow-2xl p-8 mb-8 animate-scale-in">
           <div className="flex items-center gap-3 mb-6">
-            <Video className="w-6 h-6 text-blue-500" />
-            <h2 className="text-2xl font-semibold text-gray-800">
+            <Video className="w-6 h-6 text-brand-600 dark:text-brand-600" />
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
               Final Video
             </h2>
           </div>
@@ -58,6 +58,12 @@ const UploadComplete: FC<UploadCompleteProps> = ({ session }) => {
           </div>
 
           <div className="flex justify-center gap-4 mt-6">
+            <Button variant="outline" size="lg" className="px-8" asChild>
+              <a href={videoUrl} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-5 h-5 mr-2" />
+                View Video
+              </a>
+            </Button>
             <DownloadVideo videoUrl={videoUrl} videoName="video.mp4" />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

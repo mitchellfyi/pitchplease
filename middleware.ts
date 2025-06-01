@@ -5,28 +5,30 @@ import { createClient } from './lib/supabase/middleware';
 
 // HTTP Basic Authentication
 function isAuthenticated(request: NextRequest) {
-  const authheader =
-    request.headers.get('authorization') ||
-    request.headers.get('Authorization');
+  return true;
 
-  if (!authheader) {
-    return false;
-  }
+  // const authheader =
+  //   request.headers.get('authorization') ||
+  //   request.headers.get('Authorization');
 
-  const auth = authheader.split(' ');
-  if (auth[0] !== 'Basic') {
-    return false;
-  }
+  // if (!authheader) {
+  //   return false;
+  // }
 
-  const credentials = Buffer.from(auth[1], 'base64').toString().split(':');
-  const username = credentials[0];
-  const password = credentials[1];
+  // const auth = authheader.split(' ');
+  // if (auth[0] !== 'Basic') {
+  //   return false;
+  // }
 
-  // Get credentials from environment variables
-  const validUsername = process.env.HTTP_AUTH_USERNAME || 'admin';
-  const validPassword = process.env.HTTP_AUTH_PASSWORD || 'password';
+  // const credentials = Buffer.from(auth[1], 'base64').toString().split(':');
+  // const username = credentials[0];
+  // const password = credentials[1];
 
-  return username === validUsername && password === validPassword;
+  // // Get credentials from environment variables
+  // const validUsername = process.env.HTTP_AUTH_USERNAME || 'admin';
+  // const validPassword = process.env.HTTP_AUTH_PASSWORD || 'password';
+
+  // return username === validUsername && password === validPassword;
 }
 
 function requestAuth() {
@@ -100,7 +102,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     * - sessions (public session pages)
      */
-    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|sessions).*)',
   ],
 };

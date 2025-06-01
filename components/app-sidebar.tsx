@@ -2,6 +2,7 @@
 
 import type { User } from 'next-auth';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 import { PlusIcon } from '@/components/icons';
 import { SidebarHistory } from '@/components/sidebar-history';
@@ -26,7 +27,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
     <Sidebar className="group-data-[side=left]:border-r-0">
       <SidebarHeader>
         <SidebarMenu>
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row justify-between items-start">
             <Link
               href="/"
               onClick={() => {
@@ -34,9 +35,13 @@ export function AppSidebar({ user }: { user: User | undefined }) {
               }}
               className="flex flex-row gap-3 items-center"
             >
-              <span className="text-lg font-semibold px-2 hover:bg-muted rounded-md cursor-pointer">
-                Chatbot
-              </span>
+              <Image
+                src="/logo-pitchplease.png"
+                alt="PitchPlease"
+                width={256}
+                height={122}
+                className="h-16 w-auto hover:opacity-80 transition-opacity"
+              />
             </Link>
             <Tooltip>
               <TooltipTrigger asChild>
