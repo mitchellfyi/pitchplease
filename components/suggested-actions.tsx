@@ -103,7 +103,30 @@ function PureSuggestedActions({
 
   return (
     <div className="w-full max-w-2xl mx-auto">
-     
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center mb-6"
+      >
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={(event) => {
+            toast.success('Loading sample deck...');
+            
+            // Redirect to specific session
+            router.push('/sessions/session_1748689514050_awc8aeljg');
+            event.preventDefault();
+            event.stopPropagation();
+
+          }}
+          className="mb-6 font-semibold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        >
+          <span className="mr-1">🚀</span>
+          Try with sample Notion deck
+        </Button>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}

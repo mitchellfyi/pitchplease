@@ -38,8 +38,8 @@ export function AppSidebar({ user }: { user: User | undefined }) {
               <Image
                 src="/logo-pitchplease.png"
                 alt="PitchPlease"
-                width={150}
-                height={32}
+                width={101}
+                height={48}
                 className="h-12 w-auto hover:opacity-80 transition-opacity"
               />
             </Link>

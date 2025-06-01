@@ -51,15 +51,14 @@ const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    // Reset progress for new step
+    setProgress(0);
     if (!isRunning || isComplete || currentStepIndex >= steps.length) return;
 
     // Clear any existing interval
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
-
-    // Reset progress for new step
-    setProgress(0);
 
     const currentStep = steps[currentStepIndex];
     const incrementPerTick = 100 / (currentStep.duration / 50);
@@ -81,6 +80,7 @@ const ProgressPage: FC<{ onFinish: () => void }> = ({ onFinish }) => {
             } else {
               setIsComplete(true);
               setIsRunning(false);
+              setProgress(0);
               onFinish();
             }
           }, 500);

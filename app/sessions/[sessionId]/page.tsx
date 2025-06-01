@@ -16,11 +16,11 @@ const SessionPage = async ({
   const session = await getSupabaseSession(sessionId as string);
   const userSession = await auth();
 
-  if (!session.session || session.status === 'failed' || !userSession) {
+  if (!session.session || session.status === 'failed') {
     return <div>No session found</div>;
   }
   return (
-    <SessionPageComponent session={session.session} userSession={userSession} />
+    <SessionPageComponent session={session.session} userSession={userSession ?? undefined} />
   );
 };
 
