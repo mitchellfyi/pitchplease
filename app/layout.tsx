@@ -9,9 +9,9 @@ import './globals.css';
 import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://chat.vercel.ai'),
+  metadataBase: new URL('https://pitchplease.vercel.app'),
   title: 'Pitch, Please! - AI-Powered Pitch Deck Assistant',
-  description: 'Create compelling pitch decks with AI assistance. Pitch, Please! helps you craft persuasive presentations for investors and stakeholders.',
+  description: 'Transform your basic pitch deck into compelling, AI-enhanced video presentations with automated narration, visual enhancements, and professional polish.',
 };
 
 export const viewport = {
