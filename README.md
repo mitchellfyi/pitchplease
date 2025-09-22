@@ -32,10 +32,10 @@ Perfect for entrepreneurs, startups, and businesses looking to create engaging p
 ### Screenshots
 
 **Main Interface - Upload Your Pitch Deck**
-![Pitch Please Homepage](https://github.com/user-attachments/assets/8b07d0fd-86ff-4a6e-94e8-10a473cf9fc1)
+![Pitch Please Homepage](https://github.com/user-attachments/assets/44022686-be4f-4e02-be50-eac2162333cd)
 
 **AI Processing Pipeline in Action**
-![Processing Pipeline](https://github.com/user-attachments/assets/8695cfe2-6fe6-41b6-838e-8287709974c2)
+![Processing Pipeline](https://github.com/user-attachments/assets/70bc420f-d332-4a71-8932-675c252dc997)
 
 ## How It Works
 
